@@ -19,7 +19,6 @@ fun main() {
     runBlocking {
         val results = mutableListOf<Pair<String, Boolean>>()
 
-        // Launch coroutines to check website availability
         val jobs = websites.map { url ->
             async {
                 val isAvailable = checkWebsite(url)
@@ -27,10 +26,8 @@ fun main() {
             }
         }
 
-        // Wait for all coroutines to complete
         jobs.awaitAll()
 
-        // Print results
         results.forEach { (url, isAvailable) ->
             println("Сайт $url ${if (isAvailable) "доступен" else "недоступен"}")
         }
